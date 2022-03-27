@@ -2,3 +2,21 @@
   margin: 0;
   padding: 0;
 }
+
+.main {
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.checkbox {
+  overflow: hidden;
+}
+
+.checkbox div {
+  width: 100px;
+  float: left;
+}
+
+.checkbox div label {
+  margin-left: 5px;
+}
