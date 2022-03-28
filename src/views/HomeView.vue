@@ -1,6 +1,6 @@
 <template>
   <Prefecture />
-  <Chart />
+  <Chart :options="chartOptions" />
 </template>
 
 <script>
@@ -13,7 +13,15 @@ export default {
     Chart,
   },
   data() {
-    return {};
+    return {
+      chartOptions: {
+        series: [
+          {
+            data: [1, 2, 3],
+          },
+        ],
+      },
+    };
   },
 };
 </script>

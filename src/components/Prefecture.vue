@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: "App",
+  name: "Prefecture",
   components: {},
   data() {
     return {

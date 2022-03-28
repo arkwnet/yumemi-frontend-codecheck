@@ -6,18 +6,16 @@
 
 <script>
 export default {
-  name: "App",
+  name: "Chart",
   components: {},
+  props: ["options"],
   data() {
     return {
-      chartOptions: {
-        series: [
-          {
-            data: [1, 2, 3],
-          },
-        ],
-      },
+      chartOptions: {},
     };
+  },
+  mounted: function () {
+    this.chartOptions = this.options;
   },
 };
 </script>
