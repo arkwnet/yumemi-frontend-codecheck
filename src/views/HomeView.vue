@@ -17,6 +17,12 @@ export default {
   data() {
     return {
       chartOptions: {
+        plotOptions: {
+          series: {
+            pointStart: 1960,
+            pointInterval: 5,
+          },
+        },
         series: [
           {
             data: [],
