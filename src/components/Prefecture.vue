@@ -18,6 +18,7 @@
 export default {
   name: "Prefecture",
   components: {},
+  emits: ["change-prefecture"],
   data() {
     return {
       prefectures: [],
@@ -36,6 +37,11 @@ export default {
       .catch((e) => {
         console.log(e);
       });
+  },
+  watch: {
+    selectedPrefecture: function (newVal, oldVal) {
+      this.$emit("change-prefecture", newVal);
+    },
   },
 };
 </script>

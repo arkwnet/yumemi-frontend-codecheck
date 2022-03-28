@@ -1,6 +1,8 @@
 <template>
-  <Prefecture />
-  <Chart :options="chartOptions" />
+  <div>
+    <Prefecture @change-prefecture="changePrefecture" />
+    <Chart :options="chartOptions" />
+  </div>
 </template>
 
 <script>
@@ -17,11 +19,16 @@ export default {
       chartOptions: {
         series: [
           {
-            data: [1, 2, 3],
+            data: [],
           },
         ],
       },
     };
+  },
+  methods: {
+    changePrefecture: function (selectedPrefecture) {
+      this.chartOptions.series[0].data = selectedPrefecture;
+    },
   },
 };
 </script>
