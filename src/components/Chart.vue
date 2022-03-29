@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import { nextTick } from "vue";
 export default {
   name: "Chart",
   components: {},
@@ -19,15 +18,5 @@ export default {
   mounted: function () {
     this.chartOptions = this.options;
   },
-  methods: {
-    updateChart: function () {
-      nextTick(() => {
-        this.showChart = true;
-      })
-    },
-    hideChart: function () {
-      this.showChart = false;
-    }
-  }
 };
 </script>

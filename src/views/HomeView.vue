@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Prefecture @change-prefecture="changePrefecture" />
+    <Prefecture ref="prefecture" @change-prefecture="changePrefecture" />
     <Chart ref="chart" :options="chartOptions" />
   </div>
 </template>
@@ -16,6 +16,7 @@ export default {
   },
   data() {
     return {
+      prefectures: [],
       chartOptions: {
         plotOptions: {
           series: {
@@ -27,12 +28,25 @@ export default {
       },
     };
   },
+  mounted: function () {
+    let vm = this;
+    this.axios
+      .get("https://opendata.resas-portal.go.jp/api/v1/prefectures", {
+        headers: { "X-API-KEY": import.meta.env.VITE_APIKEY },
+      })
+      .then((response) => {
+        vm.prefectures = response.data.result;
+        vm.$refs.prefecture.init(vm.prefectures);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  },
   methods: {
     changePrefecture: function (selectedPrefecture) {
-      this.$refs.chart.hideChart()
       let vm = this;
       let output = [];
-      let temp = vm.ResetTemp("Figure");
+      let count = 0;
       for (let i = 0; i < selectedPrefecture.length; i++) {
         this.axios
           .get(
@@ -46,14 +60,17 @@ export default {
             }
           )
           .then((response) => {
+            let temp = {
+              name: vm.prefectures[selectedPrefecture[i] - 1].prefName,
+              data: []
+            };
             for (let j = 0; j < response.data.result.data[0].data.length; j++) {
               temp.data.push(response.data.result.data[0].data[j].value);
             }
             output.push(temp);
-            temp = vm.ResetTemp("Figure");
-            if (i == selectedPrefecture.length - 1) {
+            count++;
+            if (count >= selectedPrefecture.length) {
               vm.chartOptions.series = output;
-              vm.$refs.chart.updateChart();
             }
           })
           .catch((e) => {
@@ -61,9 +78,6 @@ export default {
           });
       }
     },
-    ResetTemp: function (prefectureName) {
-      return {name: prefectureName, data: []};
-    }
   },
 };
 </script>

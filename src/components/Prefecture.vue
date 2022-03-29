@@ -25,18 +25,10 @@ export default {
       selectedPrefecture: [],
     };
   },
-  mounted: function () {
-    let vm = this;
-    this.axios
-      .get("https://opendata.resas-portal.go.jp/api/v1/prefectures", {
-        headers: { "X-API-KEY": import.meta.env.VITE_APIKEY },
-      })
-      .then((response) => {
-        vm.prefectures = response.data.result;
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+  methods: {
+    init: function (data) {
+      this.prefectures = data;
+    }
   },
   watch: {
     selectedPrefecture: function (newVal, oldVal) {
