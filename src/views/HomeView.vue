@@ -47,35 +47,39 @@ export default {
       let vm = this;
       let output = [];
       let count = 0;
-      for (let i = 0; i < selectedPrefecture.length; i++) {
-        this.axios
-          .get(
-            "https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear",
-            {
-              headers: { "X-API-KEY": import.meta.env.VITE_APIKEY },
-              params: {
-                prefCode: selectedPrefecture[i],
-                cityCode: "-",
-              },
-            }
-          )
-          .then((response) => {
-            let temp = {
-              name: vm.prefectures[selectedPrefecture[i] - 1].prefName,
-              data: []
-            };
-            for (let j = 0; j < response.data.result.data[0].data.length; j++) {
-              temp.data.push(response.data.result.data[0].data[j].value);
-            }
-            output.push(temp);
-            count++;
-            if (count >= selectedPrefecture.length) {
-              vm.chartOptions.series = output;
-            }
-          })
-          .catch((e) => {
-            console.log(e);
-          });
+      if (selectedPrefecture.length > 0) {
+        for (let i = 0; i < selectedPrefecture.length; i++) {
+          this.axios
+            .get(
+              "https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear",
+              {
+                headers: { "X-API-KEY": import.meta.env.VITE_APIKEY },
+                params: {
+                  prefCode: selectedPrefecture[i],
+                  cityCode: "-",
+                },
+              }
+            )
+            .then((response) => {
+              let temp = {
+                name: vm.prefectures[selectedPrefecture[i] - 1].prefName,
+                data: []
+              };
+              for (let j = 0; j < response.data.result.data[0].data.length; j++) {
+                temp.data.push(response.data.result.data[0].data[j].value);
+              }
+              output.push(temp);
+              count++;
+              if (count >= selectedPrefecture.length) {
+                vm.chartOptions.series = output;
+              }
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        }
+      } else {
+        vm.chartOptions.series = [];
       }
     },
   },
