@@ -11,7 +11,7 @@
 <script>
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: "Chart",
+  name: "PopulationChart",
   components: {},
   props: ["options"],
   data() {

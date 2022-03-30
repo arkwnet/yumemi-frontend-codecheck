@@ -1,18 +1,21 @@
 <template>
   <div>
-    <Prefecture ref="prefecture" @change-prefecture="changePrefecture" />
-    <Chart ref="chart" :options="chartOptions" />
+    <PrefectureList
+      ref="prefectureList"
+      @change-prefecture="changePrefecture"
+    />
+    <PopulationChart :options="chartOptions" />
   </div>
 </template>
 
 <script>
-import Prefecture from "../components/Prefecture.vue";
-import Chart from "../components/Chart.vue";
+import PrefectureList from "../components/PrefectureList.vue";
+import PopulationChart from "../components/PopulationChart.vue";
 export default {
   name: "App",
   components: {
-    Prefecture,
-    Chart,
+    PrefectureList,
+    PopulationChart,
   },
   data() {
     return {
@@ -36,7 +39,7 @@ export default {
       })
       .then((response) => {
         vm.prefectures = response.data.result;
-        vm.$refs.prefecture.init(vm.prefectures);
+        vm.$refs.prefectureList.init(vm.prefectures);
       })
       .catch((e) => {
         console.log(e);
@@ -66,7 +69,11 @@ export default {
                 data: [],
               };
               // eslint-disable-next-line prettier/prettier
-              for (let j = 0; j < response.data.result.data[0].data.length; j++) {
+              for (
+                let j = 0;
+                j < response.data.result.data[0].data.length;
+                j++
+              ) {
                 temp.data.push(response.data.result.data[0].data[j].value);
               }
               output.push(temp);
