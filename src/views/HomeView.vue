@@ -5,7 +5,7 @@
       :prefectures="prefectures"
       @change-prefecture="changePrefecture"
     />
-    <PopulationChart :options="chartOptions" />
+    <PopulationChart v-if="chartDisplay" :chart-options="chartOptions" />
   </div>
 </template>
 
@@ -21,7 +21,26 @@ export default {
   data() {
     return {
       prefectures: [],
+      chartDisplay: false,
       chartOptions: {
+        title: {
+          text: "",
+        },
+        xAxis: {
+          title: {
+            text: "年度",
+          },
+        },
+        yAxis: {
+          title: {
+            text: "人口数",
+          },
+          labels: {
+            formatter: function () {
+              return this.value;
+            },
+          },
+        },
         plotOptions: {
           series: {
             pointStart: 1960,
@@ -80,6 +99,7 @@ export default {
               count++;
               if (count >= selectedPrefecture.length) {
                 vm.chartOptions.series = output;
+                vm.chartDisplay = true;
               }
             })
             .catch((e) => {
@@ -87,7 +107,7 @@ export default {
             });
         }
       } else {
-        vm.chartOptions.series = [];
+        vm.chartDisplay = false;
       }
     },
   },

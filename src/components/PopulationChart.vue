@@ -13,15 +13,11 @@ export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "PopulationChart",
   components: {},
-  props: ["options"],
+  props: ["chart-options"],
   data() {
     return {
       showChart: true,
-      chartOptions: {},
     };
-  },
-  mounted: function () {
-    this.chartOptions = this.options;
   },
 };
 </script>

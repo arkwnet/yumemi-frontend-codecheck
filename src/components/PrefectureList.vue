@@ -1,5 +1,6 @@
 <template>
   <div class="checkbox">
+    <h1>都道府県</h1>
     <div v-for="prefecture in prefectures" :key="prefecture.prefCode">
       <input
         type="checkbox"
