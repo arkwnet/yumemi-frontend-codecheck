@@ -63,8 +63,9 @@ export default {
             .then((response) => {
               let temp = {
                 name: vm.prefectures[selectedPrefecture[i] - 1].prefName,
-                data: []
+                data: [],
               };
+              // eslint-disable-next-line prettier/prettier
               for (let j = 0; j < response.data.result.data[0].data.length; j++) {
                 temp.data.push(response.data.result.data[0].data[j].value);
               }

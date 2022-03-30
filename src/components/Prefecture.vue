@@ -1,6 +1,6 @@
 <template>
   <div class="checkbox">
-    <div v-for="prefecture in prefectures">
+    <div v-for="prefecture in prefectures" :key="prefecture.prefCode">
       <input
         type="checkbox"
         :id="'prefCheck' + prefecture.prefCode"
@@ -16,6 +16,7 @@
 
 <script>
 export default {
+  // eslint-disable-next-line vue/multi-word-component-names
   name: "Prefecture",
   components: {},
   emits: ["change-prefecture"],
@@ -28,10 +29,10 @@ export default {
   methods: {
     init: function (data) {
       this.prefectures = data;
-    }
+    },
   },
   watch: {
-    selectedPrefecture: function (newVal, oldVal) {
+    selectedPrefecture: function (newVal) {
       this.$emit("change-prefecture", newVal);
     },
   },
