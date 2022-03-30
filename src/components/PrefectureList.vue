@@ -7,9 +7,11 @@
         :value="prefecture.prefCode"
         v-model="selectedPrefecture"
       />
-      <label :for="'prefCheck' + prefecture.prefCode">{{
-        prefecture.prefName
-      }}</label>
+      <label
+        :id="'prefLabel' + prefecture.prefCode"
+        :for="'prefCheck' + prefecture.prefCode"
+        >{{ prefecture.prefName }}</label
+      >
     </div>
   </div>
 </template>
