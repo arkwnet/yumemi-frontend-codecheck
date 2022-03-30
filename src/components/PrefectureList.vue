@@ -20,16 +20,11 @@ export default {
   name: "PrefectureList",
   components: {},
   emits: ["change-prefecture"],
+  props: ["prefectures"],
   data() {
     return {
-      prefectures: [],
       selectedPrefecture: [],
     };
-  },
-  methods: {
-    init: function (data) {
-      this.prefectures = data;
-    },
   },
   watch: {
     selectedPrefecture: function (newVal) {

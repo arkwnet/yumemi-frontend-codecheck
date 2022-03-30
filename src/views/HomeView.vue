@@ -2,6 +2,7 @@
   <div>
     <PrefectureList
       ref="prefectureList"
+      :prefectures="prefectures"
       @change-prefecture="changePrefecture"
     />
     <PopulationChart :options="chartOptions" />
@@ -39,7 +40,6 @@ export default {
       })
       .then((response) => {
         vm.prefectures = response.data.result;
-        vm.$refs.prefectureList.init(vm.prefectures);
       })
       .catch((e) => {
         console.log(e);
