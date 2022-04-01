@@ -2,7 +2,7 @@
 
 const prefectureCount = 47;
 
-describe("Integrated Testing", () => {
+describe("Integrated Test", () => {
   // ユーザインタフェースを描画
   it("Draw user interface", () => {
     cy.visit("/");
@@ -22,24 +22,59 @@ describe("Integrated Testing", () => {
     cy.visit("/");
     let count = 0;
     let clickList = [];
-    while (count <= 5) {
+    const testCount = 5;
+    while (count <= testCount) {
       const random = Math.floor(Math.random() * prefectureCount) + 1;
       if (clickList.indexOf(random) == -1) {
         clickList.push(random);
         count++;
       }
     }
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < testCount; i++) {
       cy.get("#prefCheck" + clickList[i]).click();
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(100);
     }
     // 処理が進むまで少し待つ
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000);
     // グラフ凡例に都道府県名が表示されているか?
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < testCount; i++) {
       cy.get(".highcharts-legend-item text")
         .eq(i)
         .contains(/(都|道|府|県)$/);
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(100);
     }
+  });
+
+  // 何もチェックされていない時はグラフを非表示
+  it("Hide graph if nothing is checked", () => {
+    cy.visit("/");
+    let count = 0;
+    let clickList = [];
+    const testCount = 3;
+    // 3つの都道府県をランダムに選択
+    while (count <= testCount) {
+      const random = Math.floor(Math.random() * prefectureCount) + 1;
+      if (clickList.indexOf(random) == -1) {
+        clickList.push(random);
+        count++;
+      }
+    }
+    // チェックを入れる
+    for (let i = 0; i < testCount; i++) {
+      cy.get("#prefCheck" + clickList[i]).click();
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(100);
+    }
+    // チェックを外す
+    for (let i = 0; i < testCount; i++) {
+      cy.get("#prefCheck" + clickList[i]).click();
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(100);
+    }
+    // グラフが消えているか確認
+    cy.get(".chart").should("not.exist");
   });
 });
