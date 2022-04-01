@@ -16,6 +16,8 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 npm install
 ```
 
+Before running this program, please rename `.env.sample` to `.env` and fill in the RESAS API key.
+
 ### Compile and Hot-Reload for Development
 
 ```sh
