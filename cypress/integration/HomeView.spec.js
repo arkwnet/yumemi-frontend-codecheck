@@ -49,7 +49,7 @@ describe("Integrated Test", () => {
   });
 
   // 何もチェックされていない時はグラフを非表示
-  it("Hide graph if nothing is checked", () => {
+  it("Hide chart if nothing is checked", () => {
     cy.visit("/");
     let count = 0;
     let clickList = [];
